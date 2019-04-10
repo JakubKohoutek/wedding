@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import moment from 'moment';
 import './App.css';
 
 class App extends Component {
   render() {
+    const daysToWedding = moment([2019, 8, 21]).diff(moment(), 'days');
+
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src="./public/wedding.png" className="App-logo" alt="Wedding is comming..." />
           <p>
-            Edit <code>src/App.tsx</code> and save to reload.
+            Svatba Kuby a Adélky se blíží.
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <p>Zbývá {daysToWedding} dní</p>
         </header>
       </div>
     );
