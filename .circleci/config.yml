@@ -14,28 +14,37 @@ jobs:
           command: |
             ssh "$USER"@"$IP_ADDRESS" << 'EOF'
             PORT=8080
+            ERROR_FILE="./process.err"
+            LOG_FILE="./process.out"
             set -e
             cd wedding
-            git pull
+            git fetch origin
+            git reset --hard origin/master
             nvm use 12
             npm ci
             npm run build
-            PROCESS_ID=$( lsof -i :"$PORT" -t )
-            echo "Killing process $PROCESS_ID"
-            kill $PROCESS_ID
-            ERROR_FILE="./process.err"
-            LOG_FILE="./process.out"
-            rm "$ERROR_FILE"
+            if PROCESS_ID=$( lsof -i :"$PORT" -t ) ; then
+              echo "Killing process $PROCESS_ID occupying port $PORT"
+              kill $PROCESS_ID
+            else
+              echo "No currently running process on port $PORT"
+            fi
+            if [ -s "$ERROR_FILE" ]; then
+              rm "$ERROR_FILE"
+            fi
             npx serve ./build -p "$PORT" > "$LOG_FILE" 2> "$ERROR_FILE" < /dev/null &
             sleep 15
-            if [ -s "$ERROR_FILE" ]; then
+            if PROCESS_ID=$( lsof -i :"$PORT" -t ) ; then
+              echo "Application available at port $PORT"
+              echo "Standard output log:"
               cat "$LOG_FILE"
+            else
+              echo "No currently running process on port $PORT"
+              echo "Standard output log:"
+              cat "$LOG_FILE"
+              echo "Error log:"
               cat "$ERROR_FILE"
               exit 1
-            else 
-              cat "$LOG_FILE"
-              netstat -tulpn | grep "$PORT"
-              exit
             fi
             EOF
 workflows:
