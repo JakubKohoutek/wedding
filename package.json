@@ -8,6 +8,7 @@
     "@types/react": "16.9.11",
     "@types/react-dom": "16.9.4",
     "@types/react-router-dom": "^5.1.2",
+    "classnames": "^2.2.6",
     "moment": "^2.24.0",
     "react": "^16.9.11",
     "react-dom": "^16.9.4",
@@ -32,6 +33,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/classnames": "^2.2.9",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
     "eslint": "^6.6.0",
