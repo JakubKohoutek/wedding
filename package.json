@@ -28,9 +28,10 @@
   "scripts": {
     "build:client": "react-scripts build",
     "eject": "react-scripts eject",
-    "migration": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "server:dev": "ts-node-dev -r dotenv/config server/src/index.ts",
-    "server": "ts-node -r dotenv/config server/src/index.ts",
+    "migration": "ts-node -r dotenv/config -P server/tsconfig.json node_modules/typeorm/cli.js --config server/ormconfig.json migration:run",
+    "rollback": "ts-node -r dotenv/config -P server/tsconfig.json node_modules/typeorm/cli.js --config server/ormconfig.json migration:revert",
+    "server:dev": "ts-node-dev -r dotenv/config -P server/tsconfig.json server/src/index.ts",
+    "server": "ts-node -r dotenv/config --dir server src/index.ts",
     "client": "react-scripts start",
     "test": "react-scripts test"
   },

@@ -1,16 +1,19 @@
 import 'reflect-metadata';
-import {createConnection} from 'typeorm';
+import {createConnection, ConnectionOptions} from 'typeorm';
 import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import cors from 'cors';
+
 import routes from './routes';
+
+import DB_CONFIG from '../ormconfig.json';
 
 const PORT = 3232;
 
 (async (): Promise<void> => {
   try {
-    await createConnection();
+    await createConnection(DB_CONFIG as ConnectionOptions);
     const app = express();
 
     app.use(cors());
@@ -32,14 +35,3 @@ const PORT = 3232;
     console.error(error);
   }
 })();
-
-// await connection.manager.save(connection.manager.create(User, {
-//     firstName: "Timber",
-//     lastName: "Saw",
-//     age: 27
-// }));
-// await connection.manager.save(connection.manager.create(User, {
-//     firstName: "Phantom",
-//     lastName: "Assassin",
-//     age: 24
-// }));

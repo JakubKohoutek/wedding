@@ -1,28 +1,22 @@
 import {Router} from 'express';
 
-import UserController from '../controller/userController';
 import {checkJwt} from '../middleware/checkJwt';
 import {checkRole} from '../middleware/checkRole';
 
+import {
+  listAll,
+  getOneById,
+  newUser,
+  editUser,
+  deleteUser
+} from '../controller/userController';
+
 const router = Router();
 
-//Get all users
-router.get('/', [checkJwt, checkRole(['ADMIN'])], UserController.listAll);
-
-// Get one user
-router.get('/:id([0-9]+)', [checkJwt, checkRole(['ADMIN'])], UserController.getOneById);
-
-//Create a new user
-router.post('/', [checkJwt, checkRole(['ADMIN'])], UserController.newUser);
-
-//Edit one user
-router.patch('/:id([0-9]+)', [checkJwt, checkRole(['ADMIN'])], UserController.editUser);
-
-//Delete one user
-router.delete(
-  '/:id([0-9]+)',
-  [checkJwt, checkRole(['ADMIN'])],
-  UserController.deleteUser
-);
+router.get('/', /*[checkJwt, checkRole(['ADMIN'])], */ listAll);
+router.get('/:id([0-9]+)', [checkJwt, checkRole(['ADMIN'])], getOneById);
+router.post('/', [checkJwt, checkRole(['ADMIN'])], newUser);
+router.patch('/:id([0-9]+)', [checkJwt, checkRole(['ADMIN'])], editUser);
+router.delete('/:id([0-9]+)', [checkJwt, checkRole(['ADMIN'])], deleteUser);
 
 export default router;
