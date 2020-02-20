@@ -1,0 +1,17 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-grow: 1;
+}
+
+.login__paper {
+  padding: 20px;
+}
+
+.login__submit-button {
+  width: 150px;
+  float: right;
+}

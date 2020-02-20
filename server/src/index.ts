@@ -1,9 +1,11 @@
 import 'reflect-metadata';
 import {createConnection, ConnectionOptions} from 'typeorm';
 import express from 'express';
-import bodyParser from 'body-parser';
+import {json, urlencoded} from 'body-parser';
 import helmet from 'helmet';
 import cors from 'cors';
+import passport from 'passport';
+import cookieParser from 'cookie-parser';
 
 import routes from './routes';
 
@@ -16,18 +18,24 @@ const PORT = 3232;
     await createConnection(DB_CONFIG as ConnectionOptions);
     const app = express();
 
+    app.use(urlencoded({extended: true}));
     app.use(cors());
     app.use(helmet());
-    app.use(bodyParser.json());
+    app.use(json());
+    app.use(cookieParser());
+    app.use(passport.initialize());
 
-    app.use('/', routes);
+    if (!process.env.BASE_API_URL) {
+      throw new Error('Missing BASE_API_URL');
+    }
 
-    app.listen(PORT, () => {
-      app._router.stack.forEach(function(r: {route?: {path?: string}}) {
-        if (r.route && r.route.path) {
-          console.log(r.route.path);
-        }
-      });
+    app.use(process.env.BASE_API_URL, routes);
+
+    app.listen(PORT, (error): void => {
+      if (error) {
+        console.error(error);
+        return;
+      }
 
       console.log(`Express server has started at port ${PORT}`);
     });

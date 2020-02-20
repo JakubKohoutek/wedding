@@ -6,6 +6,7 @@ import Page from './components/page';
 
 import Home from './routes/home';
 import Map from './routes/map';
+import Login from './routes/login';
 
 const App: React.SFC = () => (
   <Router>
@@ -14,6 +15,7 @@ const App: React.SFC = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/map" component={Map} />
+        <Route path="/login" component={Login} />
       </Switch>
     </Page>
   </Router>

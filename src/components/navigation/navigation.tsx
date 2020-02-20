@@ -20,6 +20,9 @@ const Navigation: React.FunctionComponent = () => {
         <li>
           <Link to="/map">Mapa</Link>
         </li>
+        <li>
+          <Link to="/login">Přihlášení</Link>
+        </li>
       </ul>
       <div
         className="navigation__hamburger-icon"
