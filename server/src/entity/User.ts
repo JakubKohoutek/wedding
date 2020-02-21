@@ -9,6 +9,12 @@ import {
 import {Length, IsNotEmpty} from 'class-validator';
 import bcrypt from 'bcryptjs';
 
+export type UserCore = {
+  username: string;
+  email: string;
+  id: number;
+};
+
 @Entity()
 @Unique(['username'])
 export class User {

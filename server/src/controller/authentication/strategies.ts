@@ -5,12 +5,12 @@ import {getRepository} from 'typeorm';
 
 import {signToken} from './utils';
 
-import {User} from '../../entity/User';
+import {User, UserCore} from '../../entity/User';
 
 const JWTStrategy = passportJWT.Strategy;
 
 type JwtPayload = {
-  data: User;
+  data: UserCore;
 };
 
 export const jwtStrategy = (app: Express): Express => {
@@ -28,7 +28,11 @@ export const jwtStrategy = (app: Express): Express => {
     try {
       const userRepository = getRepository(User);
       const user = await userRepository.findOneOrFail(jwtPayload.data.id);
-      return cb(null, user);
+      return cb(null, {
+        username: user.username,
+        email: user.email,
+        id: user.id
+      });
     } catch (err) {
       return cb(err);
     }
@@ -39,14 +43,16 @@ export const jwtStrategy = (app: Express): Express => {
   return app;
 };
 
-export const login = (req: Request, user: User): Promise<string> => {
+export const loginUser = (req: Request, user: UserCore): Promise<string> => {
   return new Promise((resolve, reject) => {
     req.login(user, {session: false}, (err) => {
       if (err) {
         return reject(err.stack);
       }
 
-      return resolve(signToken(user));
+      const token = signToken(user);
+
+      return resolve(token);
     });
   });
 };

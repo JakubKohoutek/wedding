@@ -3,15 +3,14 @@ import jwt from 'jsonwebtoken';
 import {getRepository} from 'typeorm';
 import {validate} from 'class-validator';
 
-import {User} from '../entity/User';
+import {User, UserCore} from '../entity/User';
 
-import {login as loginStrategy} from './authentication/strategies';
+import {loginUser} from './authentication/strategies';
 
 const jwtSecret = process.env.JWT_SECRET;
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const {username, email, password} = req.body;
-  console.log(username, email, password);
 
   const user = new User();
 
@@ -22,7 +21,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
   const errors = await validate(user);
   if (errors.length > 0) {
-    res.status(400).send(errors);
+    res.status(400).send({error: errors});
     return;
   }
 
@@ -33,18 +32,26 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     await userRepository.save(user);
   } catch (e) {
     console.error(e);
-    res.status(409).send('username already in use');
+    res.status(409).send({error: 'username already in use'});
     return;
   }
 
-  const token = await loginStrategy(req, user);
+  const userData: UserCore = {
+    username: user.username,
+    email: user.email,
+    id: user.id
+  };
+
+  const token = await loginUser(req, userData);
+  console.log(token);
 
   res
     .status(201)
     .cookie('jwt', token, {
+      maxAge: 900000,
       httpOnly: true
     })
-    .send('successfully registered');
+    .send({success: 'successfully registered'});
   return;
 };
 

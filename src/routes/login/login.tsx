@@ -22,7 +22,7 @@ const Map: React.FunctionComponent = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      // credentials: 'same-origin',
+      credentials: 'include',
       body: JSON.stringify(formData)
     }).then((response) => {
       console.log(response);

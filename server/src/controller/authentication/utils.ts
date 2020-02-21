@@ -2,10 +2,10 @@ import passport from 'passport';
 import {getRepository} from 'typeorm';
 import jwt from 'jsonwebtoken';
 
-import {User} from '../../entity/User';
+import {User, UserCore} from '../../entity/User';
 
 export const setup = (): void => {
-  passport.serializeUser((user: User, done) => done(null, user.id));
+  passport.serializeUser((user: UserCore, done) => done(null, user.id));
 
   passport.deserializeUser(async (id: number, done) => {
     try {
@@ -18,7 +18,7 @@ export const setup = (): void => {
   });
 };
 
-export const signToken = (user: User): string => {
+export const signToken = (user: UserCore): string => {
   if (!process.env.JWT_SECRET) {
     throw new Error('Missing environment variable JWT_SECRET');
   }
