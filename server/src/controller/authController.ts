@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import {getRepository} from 'typeorm';
 import {validate} from 'class-validator';
 
-import {User, UserCore} from '../entity/User';
+import {User, UserDTO} from '../entity/User';
 
 import {loginUser} from './authentication/strategies';
 
@@ -21,7 +21,12 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
   const errors = await validate(user);
   if (errors.length > 0) {
-    res.status(400).send({error: errors});
+    const sanitizedErrors = errors.map((error) => ({
+      field: error.property,
+      error: Object.values(error.constraints)[0]
+    }));
+
+    res.status(400).send({errors: sanitizedErrors});
     return;
   }
 
@@ -32,11 +37,18 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     await userRepository.save(user);
   } catch (e) {
     console.error(e);
-    res.status(409).send({error: 'username already in use'});
+    res.status(409).send({
+      errors: [
+        {
+          field: 'username',
+          error: 'Uživatel s tímto jménem už existuje'
+        }
+      ]
+    });
     return;
   }
 
-  const userData: UserCore = {
+  const userData: UserDTO = {
     username: user.username,
     email: user.email,
     id: user.id
@@ -51,7 +63,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       maxAge: 900000,
       httpOnly: true
     })
-    .send({success: 'successfully registered'});
+    .send(userData);
   return;
 };
 

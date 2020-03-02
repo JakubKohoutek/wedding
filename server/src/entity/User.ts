@@ -9,10 +9,10 @@ import {
 import {Length, IsNotEmpty} from 'class-validator';
 import bcrypt from 'bcryptjs';
 
-export type UserCore = {
+export type UserDTO = {
   username: string;
   email: string;
-  id: number;
+  id?: number;
 };
 
 @Entity()

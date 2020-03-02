@@ -5,12 +5,12 @@ import {getRepository} from 'typeorm';
 
 import {signToken} from './utils';
 
-import {User, UserCore} from '../../entity/User';
+import {User, UserDTO} from '../../entity/User';
 
 const JWTStrategy = passportJWT.Strategy;
 
 type JwtPayload = {
-  data: UserCore;
+  data: UserDTO;
 };
 
 export const jwtStrategy = (app: Express): Express => {
@@ -43,7 +43,7 @@ export const jwtStrategy = (app: Express): Express => {
   return app;
 };
 
-export const loginUser = (req: Request, user: UserCore): Promise<string> => {
+export const loginUser = (req: Request, user: UserDTO): Promise<string> => {
   return new Promise((resolve, reject) => {
     req.login(user, {session: false}, (err) => {
       if (err) {
