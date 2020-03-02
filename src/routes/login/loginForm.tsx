@@ -35,7 +35,7 @@ const LoginForm: React.FunctionComponent<Props> = ({showRegistrationForm}) => {
       body: JSON.stringify(formData)
     });
 
-    if (response.status !== 201) {
+    if (response.status !== 200) {
       setSubmitting(false);
       const payload = await response.json();
 
