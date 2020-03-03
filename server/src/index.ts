@@ -19,7 +19,7 @@ const PORT = 3232;
     const app = express();
 
     app.use(urlencoded({extended: true}));
-    app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+    app.use(cors({credentials: true}));
     app.use(helmet());
     app.use(json());
     app.use(cookieParser());
