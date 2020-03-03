@@ -2,9 +2,9 @@ import {Request, Response} from 'express';
 import {getRepository} from 'typeorm';
 import {validate} from 'class-validator';
 
-import {User, UserDTO} from '../entity/User';
+import {User, UserDTO} from '../../entity/User';
 
-import {loginUser} from './authentication/strategies';
+import {loginUser} from './strategies';
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const {username, email, password} = req.body;

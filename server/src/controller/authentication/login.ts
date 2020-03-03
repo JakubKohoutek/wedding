@@ -1,9 +1,9 @@
 import {Request, Response} from 'express';
 import {getRepository} from 'typeorm';
 
-import {User, UserDTO} from '../entity/User';
+import {User, UserDTO} from '../../entity/User';
 
-import {loginUser} from './authentication/strategies';
+import {loginUser} from './strategies';
 
 const jwtSecret = process.env.JWT_SECRET;
 

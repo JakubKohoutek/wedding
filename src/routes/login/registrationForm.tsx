@@ -23,7 +23,7 @@ const RegistrationForm: React.FunctionComponent = () => {
   const handleRegistration = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setSubmitting(true);
-    const response = await fetch('http://localhost:3232/api/auth/register', {
+    const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

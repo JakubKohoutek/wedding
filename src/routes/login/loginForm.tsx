@@ -26,7 +26,7 @@ const LoginForm: React.FunctionComponent<Props> = ({showRegistrationForm}) => {
   const handleLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setSubmitting(true);
-    const response = await fetch('http://localhost:3232/api/auth/login', {
+    const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

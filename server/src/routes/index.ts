@@ -1,16 +1,19 @@
 import {Router} from 'express';
 
-import {register} from '../controller/register';
-import {login} from '../controller/login';
+import {register} from '../controller/authentication/register';
+import {login} from '../controller/authentication/login';
 
-import user from './user';
+import {listAllUsers} from '../controller/user/listAll';
 
 const routes = Router();
 
+// Authentication
 const AUTHENTICATION_BASE = '/auth';
 routes.post(`${AUTHENTICATION_BASE}/register`, register);
 routes.post(`${AUTHENTICATION_BASE}/login`, login);
 
-routes.use('/user', user);
+// Users
+const USER_BASE = '/user';
+routes.get(USER_BASE, listAllUsers);
 
 export default routes;
