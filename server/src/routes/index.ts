@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import passport from 'passport';
 
 import {register} from '../controller/authentication/register';
 import {login} from '../controller/authentication/login';
@@ -16,6 +17,6 @@ routes.get(`${AUTHENTICATION_BASE}/logout`, logout);
 
 // Users
 const USER_BASE = '/user';
-routes.get(USER_BASE, listAllUsers);
+routes.get(USER_BASE, passport.authenticate('jwt'), listAllUsers);
 
 export default routes;

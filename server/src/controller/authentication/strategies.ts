@@ -43,8 +43,8 @@ export const jwtStrategy = (app: Express): Express => {
   return app;
 };
 
-export const loginUser = (req: Request, user: UserDTO): Promise<string> => {
-  return new Promise((resolve, reject) => {
+export const loginUser = (req: Request, user: UserDTO): Promise<string> =>
+  new Promise((resolve, reject) => {
     req.login(user, {session: false}, (err) => {
       if (err) {
         return reject(err.stack);
@@ -55,4 +55,3 @@ export const loginUser = (req: Request, user: UserDTO): Promise<string> => {
       return resolve(token);
     });
   });
-};

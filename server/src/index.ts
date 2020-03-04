@@ -8,6 +8,7 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 
 import routes from './routes';
+import {initializeAuthentication} from './controller/authentication';
 
 import DB_CONFIG from '../ormconfig.json';
 
@@ -24,6 +25,7 @@ const PORT = 3232;
     app.use(json());
     app.use(cookieParser());
     app.use(passport.initialize());
+    initializeAuthentication(app);
 
     if (!process.env.BASE_API_URL) {
       throw new Error('Missing BASE_API_URL');
