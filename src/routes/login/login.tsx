@@ -4,11 +4,13 @@ import Button from '@material-ui/core/Button';
 
 import {UserDTO} from '../../../server/src/entity/User';
 
+import LoginForm from './loginForm';
 import {context, defaultUserState} from '../../context';
 import RegistrationForm from './registrationForm';
 
+import {logoutIfUnauthorized, logout} from '../../utils/apiClient';
+
 import './login.css';
-import LoginForm from './loginForm';
 
 const getAllUsers = async (): Promise<UserDTO[]> => {
   const response = await fetch('/api/user', {
@@ -18,22 +20,9 @@ const getAllUsers = async (): Promise<UserDTO[]> => {
     },
     credentials: 'include'
   });
+  await logoutIfUnauthorized(response);
 
   return await response.json();
-};
-
-const logout = async (): Promise<void> => {
-  const response = await fetch('/api/auth/logout', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include'
-  });
-
-  if (response.status !== 200) {
-    throw new Error('Can not log out');
-  }
 };
 
 const Login: React.FunctionComponent = () => {

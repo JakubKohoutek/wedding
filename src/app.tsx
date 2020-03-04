@@ -10,6 +10,7 @@ import Map from './routes/map';
 import Login from './routes/login';
 
 import {useLocalStorage} from './utils/useLocalStorage';
+import QuestionnaireForm from './routes/questionnaire/form';
 
 const App: React.SFC = () => {
   const [user, setUser] = useLocalStorage('user', defaultUserState);
@@ -23,6 +24,7 @@ const App: React.SFC = () => {
             <Route exact path="/" component={Home} />
             <Route path="/map" component={Map} />
             <Route path="/login" component={Login} />
+            <Route path="/questionnaire" component={QuestionnaireForm} />
           </Switch>
         </Page>
       </context.Provider>

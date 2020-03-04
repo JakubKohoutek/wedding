@@ -16,7 +16,7 @@ export type UserDTO = {
 };
 
 @Entity()
-@Unique(['username'])
+@Unique(['username', 'email'])
 export class User {
   @PrimaryGeneratedColumn()
   id!: number;
