@@ -11,7 +11,7 @@ import './login.css';
 import LoginForm from './loginForm';
 
 const getAllUsers = async (): Promise<UserDTO[]> => {
-  const result = await fetch('/api/user', {
+  const response = await fetch('/api/user', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -19,7 +19,21 @@ const getAllUsers = async (): Promise<UserDTO[]> => {
     credentials: 'include'
   });
 
-  return await result.json();
+  return await response.json();
+};
+
+const logout = async (): Promise<void> => {
+  const response = await fetch('/api/auth/logout', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  });
+
+  if (response.status !== 200) {
+    throw new Error('Can not log out');
+  }
 };
 
 const Login: React.FunctionComponent = () => {
@@ -27,8 +41,13 @@ const Login: React.FunctionComponent = () => {
   const [registered, setRegistered] = useState(true);
   const [listOfUsers, setListOfUsers] = useState<UserDTO[]>([]);
 
-  const logout = (): void => {
-    setUser(defaultUserState);
+  const handleLogout = async (): Promise<void> => {
+    try {
+      await logout();
+      setUser(defaultUserState);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +67,7 @@ const Login: React.FunctionComponent = () => {
         <Card className="login__paper">
           <p>Jsi přihlášen jako {user.username}</p>
           <div className="login__logout-button">
-            <Button onClick={logout} variant="contained" color="primary">
+            <Button onClick={handleLogout} variant="contained" color="primary">
               Odhlásit
             </Button>
           </div>

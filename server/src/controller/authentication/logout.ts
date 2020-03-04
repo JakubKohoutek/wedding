@@ -4,9 +4,12 @@ export const logout = async (req: Request, res: Response): Promise<void> => {
   try {
     req.logout();
 
-    res.status(200).cookie('jwt', '', {
-      httpOnly: true
-    });
+    res
+      .status(200)
+      .cookie('jwt', '', {
+        httpOnly: true
+      })
+      .send();
   } catch (error) {
     console.error(error);
 
