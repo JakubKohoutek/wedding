@@ -8,6 +8,7 @@ import {context, defaultUserState} from './context';
 import Home from './routes/home';
 import Map from './routes/map';
 import Login from './routes/login';
+import Gifts from './routes/gifts/gifts';
 
 import {useLocalStorage} from './utils/useLocalStorage';
 import QuestionnaireForm from './routes/questionnaire/form';
@@ -24,6 +25,7 @@ const App: React.SFC = () => {
             <Route exact path="/" component={Home} />
             <Route path="/map" component={Map} />
             <Route path="/login" component={Login} />
+            <Route path="/gifts" component={Gifts} />
             <Route path="/questionnaire" component={QuestionnaireForm} />
           </Switch>
         </Page>

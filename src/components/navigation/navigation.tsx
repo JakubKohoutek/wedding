@@ -21,6 +21,9 @@ const Navigation: React.FunctionComponent = () => {
           <Link to="/map">Mapa</Link>
         </li>
         <li>
+          <Link to="/gifts">Dary</Link>
+        </li>
+        <li>
           <Link to="/login">Přihlášení</Link>
         </li>
       </ul>
