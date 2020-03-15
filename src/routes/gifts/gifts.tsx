@@ -6,13 +6,15 @@ const Gifts: React.FunctionComponent = () => {
   return (
     <div className="gifts">
       <section className="gifts__poem">
-        <p>Lásku, štěstí i vybavení domácnosti máme,</p>
-        <p>Proto oba velmi uvítáme</p>
-        <p>Váš příspěvek v jakékoliv výši,</p>
-        <p>Který nám šanci na pořízení bydlení zvýší.</p>
+        <p>Lásku, štěstí i vybavení domácnosti už máme,</p>
+        <p>proto oba velmi uvítáme</p>
+        <p>váš příspěvek v jakékoliv výši,</p>
+        <p>který nám šanci na byt či dům zvýší.</p>
         <br />
         <p>Spíše než hrnce, skleničky, kávovar či pánvičky</p>
-        <p>Radost nám tedy udělají spíše peněžní balíčky.</p>
+        <p>úsměv nám vykouzlí peněžní balíčky.</p>
+        <br />
+        <p className="gifts__thanks">Děkujeme 🙏</p>
       </section>
     </div>
   );

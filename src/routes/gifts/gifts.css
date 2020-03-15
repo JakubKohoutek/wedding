@@ -11,3 +11,7 @@
 .gifts__poem p {
   margin: 10px;
 }
+
+.gifts__thanks {
+  text-align: right;
+}
