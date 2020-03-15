@@ -28,7 +28,6 @@ const getAllUsers = async (): Promise<UserDTO[]> => {
 const Login: React.FunctionComponent = () => {
   const {user, setUser} = useContext(context);
   const [registered, setRegistered] = useState(true);
-  const [listOfUsers, setListOfUsers] = useState<UserDTO[]>([]);
 
   const handleLogout = async (): Promise<void> => {
     try {
@@ -38,17 +37,6 @@ const Login: React.FunctionComponent = () => {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    (async (): Promise<void> => {
-      try {
-        const users = await getAllUsers();
-        setListOfUsers(users);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [registered]);
 
   return (
     <div className="login">
@@ -64,10 +52,6 @@ const Login: React.FunctionComponent = () => {
               Odhlásit
             </Button>
           </div>
-          <p>Všichni uživatelé:</p>
-          {listOfUsers.map((user) => (
-            <div key={user.id}>{user.username}</div>
-          ))}
         </Card>
       ) : registered ? (
         <LoginForm showRegistrationForm={(): void => setRegistered(false)} />

@@ -18,7 +18,12 @@ export const setup = (): void => {
   });
 };
 
-export const signToken = (user: UserDTO): string =>
-  jwt.sign({data: user}, process.env.JWT_SECRET, {
+export const signToken = (user: UserDTO): string => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('Missing JWT secret in environment variables.');
+  }
+
+  return jwt.sign({data: user}, process.env.JWT_SECRET, {
     expiresIn: '12h'
   });
+};
