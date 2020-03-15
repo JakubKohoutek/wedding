@@ -55,6 +55,10 @@ const Login: React.FunctionComponent = () => {
       {user.id ? (
         <Card className="login__paper">
           <p>Jsi přihlášen jako {user.username}</p>
+          <p>
+            Pokud jsi tak ještě neučinil(a), dej nám prosím vědět zda dorazíš a kdo dorazí
+            s tebou prostřednictvím <a href="/questionnaire">krátkého dotazníku</a>.
+          </p>
           <div className="login__logout-button">
             <Button onClick={handleLogout} variant="contained" color="primary">
               Odhlásit

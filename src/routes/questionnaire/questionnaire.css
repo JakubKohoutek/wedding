@@ -1,0 +1,17 @@
+.questionnaire {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-grow: 1;
+}
+
+.questionnaire__submit-button {
+  float: right;
+}
+
+.questionnaire__paper {
+  padding: 20px;
+  max-width: 600px;
+}

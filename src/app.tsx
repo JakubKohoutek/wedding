@@ -11,7 +11,9 @@ import Login from './routes/login';
 import Gifts from './routes/gifts/gifts';
 
 import {useLocalStorage} from './utils/useLocalStorage';
-import QuestionnaireForm from './routes/questionnaire/form';
+import Questionnaire from './routes/questionnaire';
+
+import './app.css';
 
 const App: React.SFC = () => {
   const [user, setUser] = useLocalStorage('user', defaultUserState);
@@ -21,13 +23,15 @@ const App: React.SFC = () => {
       <context.Provider value={{user, setUser}}>
         <Page>
           <Navigation />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/map" component={Map} />
-            <Route path="/login" component={Login} />
-            <Route path="/gifts" component={Gifts} />
-            <Route path="/questionnaire" component={QuestionnaireForm} />
-          </Switch>
+          <main className="content">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/map" component={Map} />
+              <Route path="/login" component={Login} />
+              <Route path="/gifts" component={Gifts} />
+              <Route path="/questionnaire" component={Questionnaire} />
+            </Switch>
+          </main>
         </Page>
       </context.Provider>
     </Router>

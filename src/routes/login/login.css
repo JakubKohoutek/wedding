@@ -9,6 +9,7 @@
 
 .login__paper {
   padding: 20px;
+  max-width: 500px;
 }
 
 .login__buttons {

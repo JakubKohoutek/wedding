@@ -1,16 +1,7 @@
 .page {
+  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.8);
   background: url("/us_compressed.jpg");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.page__light {
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
-}
-
-.page__dark {
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.8);
 }

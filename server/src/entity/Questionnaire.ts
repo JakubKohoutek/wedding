@@ -12,12 +12,11 @@ export type QuestionnaireDTO = {
   registratorId: number;
   name: string;
   surname: string;
-  foodRequirements: boolean;
-  foodRequirementsDetail: string;
-  accomodationFriday: boolean;
-  accomodationSaturday: boolean;
+  foodRequirements: string;
+  accommodationFriday: boolean;
+  accommodationSaturday: boolean;
   isChild: boolean;
-  age: number;
+  age?: number;
 };
 
 @Entity()
@@ -39,16 +38,16 @@ export class Questionnaire {
   foodRequirements!: string;
 
   @Column()
-  accomodationFriday!: boolean;
+  accommodationFriday!: boolean;
 
   @Column()
-  accomodationSaturday!: boolean;
+  accommodationSaturday!: boolean;
 
   @Column()
   isChild!: boolean;
 
-  @Column()
-  age!: number;
+  @Column({nullable: true, type: String})
+  age!: number | null;
 
   @Column()
   @CreateDateColumn()

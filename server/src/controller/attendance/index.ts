@@ -11,13 +11,11 @@ export const recordAttendance = async (req: Request, res: Response): Promise<voi
   questionnaire.registratorId = answers.registratorId;
   questionnaire.name = answers.name;
   questionnaire.surname = answers.surname;
-  questionnaire.foodRequirements = answers.foodRequirements
-    ? answers.foodRequirementsDetail
-    : '';
-  questionnaire.accomodationFriday = answers.accomodationFriday;
-  questionnaire.accomodationSaturday = answers.accomodationSaturday;
+  questionnaire.foodRequirements = answers.foodRequirements;
+  questionnaire.accommodationFriday = answers.accommodationFriday;
+  questionnaire.accommodationSaturday = answers.accommodationSaturday;
   questionnaire.isChild = answers.isChild;
-  questionnaire.age = answers.age;
+  questionnaire.age = answers.age || null;
 
   const errors = await validate(questionnaire);
 
