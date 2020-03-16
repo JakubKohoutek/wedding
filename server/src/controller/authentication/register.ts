@@ -6,6 +6,8 @@ import {User, UserDTO} from '../../entity/User';
 
 import {loginUser} from './strategies';
 
+import {setJwtCookie} from '../../utils/cookies';
+
 export const register = async (req: Request, res: Response): Promise<void> => {
   const {username, email, password} = req.body;
 
@@ -53,12 +55,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
   const token = await loginUser(req, userData);
 
-  res
-    .status(201)
-    .cookie('jwt', token, {
-      maxAge: 900000,
-      httpOnly: true
-    })
-    .send(userData);
+  setJwtCookie(res, token);
+  res.status(201).send(userData);
   return;
 };

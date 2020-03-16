@@ -5,6 +5,8 @@ import {User, UserDTO} from '../../entity/User';
 
 import {loginUser} from './strategies';
 
+import {setJwtCookie} from '../../utils/cookies';
+
 const jwtSecret = process.env.JWT_SECRET;
 
 export const login = async (req: Request, res: Response): Promise<void> => {
@@ -50,14 +52,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     };
 
     const token = await loginUser(req, userData);
+    setJwtCookie(res, token);
 
-    res
-      .status(200)
-      .cookie('jwt', token, {
-        maxAge: 900000,
-        httpOnly: true
-      })
-      .send(userData);
+    res.status(200).send(userData);
   } catch (error) {
     console.error(error);
     errors.push({

@@ -24,6 +24,6 @@ export const signToken = (user: UserDTO): string => {
   }
 
   return jwt.sign({data: user}, process.env.JWT_SECRET, {
-    expiresIn: '12h'
+    expiresIn: '12w'
   });
 };

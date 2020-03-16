@@ -46,8 +46,8 @@ const LoginForm: React.FunctionComponent<Props> = ({showRegistrationForm}) => {
 
     const payload: UserDTO = await response.json();
 
-    setUser(payload);
     setSubmitting(false);
+    setUser(payload);
   };
 
   return (

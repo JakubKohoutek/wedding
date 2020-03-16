@@ -1,5 +1,3 @@
-import {defaultUserState} from '../context';
-
 export const logout = async (): Promise<void> => {
   const response = await fetch('/api/auth/logout', {
     method: 'GET',
@@ -14,10 +12,14 @@ export const logout = async (): Promise<void> => {
   }
 };
 
-export const logoutIfUnauthorized = async (response: Response): Promise<void> => {
-  if (response.status === 401) {
-    await logout();
-    window.localStorage.setItem('user', JSON.stringify(defaultUserState));
-    throw new Error('Unauthorized');
-  }
+export const getUser = async (userId: number): Promise<Response> => {
+  const response = await fetch(`/api/user/${userId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  });
+
+  return response;
 };

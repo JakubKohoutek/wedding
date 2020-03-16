@@ -1,15 +1,13 @@
 import {Request, Response} from 'express';
 
+import {clearJwtCookie} from '../../utils/cookies';
+
 export const logout = async (req: Request, res: Response): Promise<void> => {
   try {
     req.logout();
 
-    res
-      .status(200)
-      .cookie('jwt', '', {
-        httpOnly: true
-      })
-      .send();
+    clearJwtCookie(res);
+    res.status(200).send();
   } catch (error) {
     console.error(error);
 

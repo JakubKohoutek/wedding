@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox, {CheckboxProps} from '@material-ui/core/Checkbox';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-import {logoutIfUnauthorized} from '../../utils/apiClient';
 import {QuestionnaireDTO} from '../../../server/src/entity/Questionnaire';
 
 type Props = {
@@ -41,8 +40,6 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
         credentials: 'include',
         body: JSON.stringify(formData)
       });
-
-      logoutIfUnauthorized(response);
 
       if (response.status !== 201) {
         setSubmitting(false);

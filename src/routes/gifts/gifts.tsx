@@ -14,7 +14,10 @@ const Gifts: React.FunctionComponent = () => {
         <p>Spíše než hrnce, skleničky, kávovar či pánvičky</p>
         <p>úsměv nám vykouzlí peněžní balíčky.</p>
         <br />
-        <p className="gifts__thanks">Děkujeme 🙏</p>
+        <p className="gifts__thanks">
+          {/* eslint-disable-next-line */}
+          Děkujeme <span role="img" aria-label="Thank you emoji">🙏</span>
+        </p>
       </section>
     </div>
   );

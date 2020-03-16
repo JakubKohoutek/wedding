@@ -5,7 +5,7 @@ import {register} from './controller/authentication/register';
 import {login} from './controller/authentication/login';
 import {logout} from './controller/authentication/logout';
 
-import {listAllUsers} from './controller/user/listAll';
+import {listAllUsers, getUser} from './controller/user';
 
 import {recordAttendance} from './controller/attendance';
 
@@ -22,6 +22,7 @@ const allowOnlyAuthenticated = passport.authenticate('jwt');
 // Users
 const USER_BASE = '/user';
 routes.get(USER_BASE, allowOnlyAuthenticated, listAllUsers);
+routes.get(`${USER_BASE}/:userId`, allowOnlyAuthenticated, getUser);
 
 // Attendance form
 const ATTENDANCE_BASE = '/attendance';
