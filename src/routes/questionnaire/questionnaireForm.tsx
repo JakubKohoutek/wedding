@@ -1,11 +1,9 @@
-import React, {useState, FormEvent, useContext} from 'react';
-import Box from '@material-ui/core/Box';
+import React, {useState, FormEvent} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox, {CheckboxProps} from '@material-ui/core/Checkbox';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import {QuestionnaireDTO} from '../../../server/src/entity/Questionnaire';
 
@@ -24,7 +22,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
     accommodationSaturday: true,
     isChild: false
   });
-  console.log(formData);
+
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
 
@@ -55,7 +53,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
   };
 
   return (
-    <form method="post" noValidate onSubmit={handleSubmit} className={className}>
+    <form onSubmit={handleSubmit} className={className}>
       <TextField
         margin="normal"
         required
@@ -134,6 +132,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
         <TextField
           margin="normal"
           fullWidth
+          required
           id="age"
           name="age"
           label="Můj věk"

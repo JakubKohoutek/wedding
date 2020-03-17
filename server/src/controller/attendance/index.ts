@@ -39,3 +39,43 @@ export const recordAttendance = async (req: Request, res: Response): Promise<voi
     return;
   }
 };
+
+export const getAttendance = async (req: Request, res: Response): Promise<void> => {
+  try {
+    if (!req.params.userId) {
+      throw new Error('Missing user ID.');
+    }
+
+    const userId = parseInt(req.params.userId, 10);
+    const userRepository = getRepository(Questionnaire);
+    const foundRecords = await userRepository.find({
+      registratorId: userId
+    });
+
+    res.status(200).send(foundRecords);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({error: error.message});
+  }
+};
+
+export const deleteAttendance = async (req: Request, res: Response): Promise<void> => {
+  try {
+    if (!req.params.id) {
+      throw new Error('Missing ID.');
+    }
+
+    const id = parseInt(req.params.id, 10);
+    const userRepository = getRepository(Questionnaire);
+    await userRepository.delete({
+      id
+    });
+
+    res.status(200).send();
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).send({error: error.message});
+  }
+};

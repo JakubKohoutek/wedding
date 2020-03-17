@@ -7,7 +7,7 @@ import {logout} from './controller/authentication/logout';
 
 import {listAllUsers, getUser} from './controller/user';
 
-import {recordAttendance} from './controller/attendance';
+import {recordAttendance, getAttendance, deleteAttendance} from './controller/attendance';
 
 const routes = Router();
 
@@ -27,5 +27,7 @@ routes.get(`${USER_BASE}/:userId`, allowOnlyAuthenticated, getUser);
 // Attendance form
 const ATTENDANCE_BASE = '/attendance';
 routes.post(ATTENDANCE_BASE, allowOnlyAuthenticated, recordAttendance);
+routes.get(`${ATTENDANCE_BASE}/:userId`, allowOnlyAuthenticated, getAttendance);
+routes.delete(`${ATTENDANCE_BASE}/:id`, allowOnlyAuthenticated, deleteAttendance);
 
 export default routes;
