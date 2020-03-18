@@ -6,7 +6,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
+import ChildCareOutlinedIcon from '@material-ui/icons/ChildCareOutlined';
+import CheckIcon from '@material-ui/icons/CheckOutlined';
+import CloseIcon from '@material-ui/icons/CloseOutlined';
 
 import {QuestionnaireDTO} from '../../../server/src/entity/Questionnaire';
 
@@ -16,10 +21,18 @@ type Props = {
   userId: number;
 };
 
+const renderYesIcon = (): JSX.Element => (
+  <CheckIcon fontSize="small" className="attendees-table__icon" />
+);
+
+const renderNoIcon = (): JSX.Element => (
+  <CloseIcon fontSize="small" className="attendees-table__icon" />
+);
+
 export const AttendeesTable: React.FC<Props> = ({userId}) => {
   const [attendees, setAttendees] = useState<QuestionnaireDTO[]>([]);
   const [loading, setLoading] = useState(false);
-  const [deleting, setDeleting] = useState(false);
+  const [deleting, setDeleting] = useState<number | null>(null);
 
   useEffect(() => {
     if (deleting) {
@@ -44,51 +57,80 @@ export const AttendeesTable: React.FC<Props> = ({userId}) => {
   }, [userId, loading, deleting]);
 
   const handleDeleteAttendee = (id?: number) => async (): Promise<void> => {
-    setDeleting(true);
+    if (!id) {
+      return;
+    }
+
+    setDeleting(id);
     try {
       await deleteAttendee(id);
     } catch (error) {
       console.error(error);
     }
-    setDeleting(false);
+    setDeleting(null);
   };
 
+  if (attendees.length === 0) {
+    return null;
+  }
+
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Jméno</TableCell>
-            <TableCell align="right">Požadavky na jídlo</TableCell>
-            <TableCell align="right">Ubytování pátek</TableCell>
-            <TableCell align="right">Ubytování sobota</TableCell>
-            <TableCell align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {attendees.map((row) => (
-            <TableRow key={`${row.name}-${row.surname}`}>
-              <TableCell component="th" scope="row">
-                {`${row.name} ${row.surname}`}
-              </TableCell>
-              <TableCell align="right">{row.foodRequirements}</TableCell>
-              <TableCell align="right">
-                {row.accommodationFriday ? 'Ano' : 'Ne'}
-              </TableCell>
-              <TableCell align="right">
-                {row.accommodationSaturday ? 'Ano' : 'Ne'}
-              </TableCell>
-              <TableCell align="right">
-                <DeleteForeverOutlinedIcon
-                  color="secondary"
-                  fontSize="small"
-                  onClick={handleDeleteAttendee(row.id)}
-                />
-              </TableCell>
+    <>
+      <Typography component="h1" variant="h6" gutterBottom>
+        Seznam tebou registrovaných účastníků
+      </Typography>
+      <TableContainer component={Paper} className="attendees-table">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Jméno</TableCell>
+              <TableCell align="right" />
+              <TableCell align="right">Požadavky na jídlo</TableCell>
+              <TableCell align="right">Ubytování pátek</TableCell>
+              <TableCell align="right">Ubytování sobota</TableCell>
+              <TableCell align="right" />
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {attendees.map((row) => (
+              <TableRow key={row.id || 0}>
+                <TableCell component="th" scope="row">
+                  {`${row.name} ${row.surname} `}
+                </TableCell>
+                <TableCell align="right">
+                  {row.isChild && (
+                    <ChildCareOutlinedIcon
+                      fontSize="small"
+                      className="attendees-table__icon"
+                      titleAccess={`${row.age} let`}
+                    />
+                  )}
+                </TableCell>
+                <TableCell align="right">{row.foodRequirements}</TableCell>
+                <TableCell align="right">
+                  {row.accommodationFriday ? renderYesIcon() : renderNoIcon()}
+                </TableCell>
+                <TableCell align="right">
+                  {row.accommodationSaturday ? renderYesIcon() : renderNoIcon()}
+                </TableCell>
+                <TableCell align="right">
+                  {deleting === row.id ? (
+                    <CircularProgress color="secondary" size={20} />
+                  ) : (
+                    <DeleteForeverOutlinedIcon
+                      className="attendees-table__delete-icon"
+                      color="secondary"
+                      fontSize="small"
+                      titleAccess="Odstranit"
+                      onClick={handleDeleteAttendee(row.id)}
+                    />
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };

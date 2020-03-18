@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import {ThemeProvider} from '@material-ui/styles';
 import {createMuiTheme} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 import QuestionnaireForm from './questionnaireForm';
 import {context} from '../../context';
@@ -19,21 +20,13 @@ const theme = createMuiTheme({
 
 const Questionnaire: React.FunctionComponent = () => {
   const {user} = useContext(context);
-
-  // return (
-  //   <div className="questionnaire">
-  //     <Alert severity="info">
-  //       Na dotazníku usilovně pracujeme. Zkuste to, prosím, znovu zítra.
-  //     </Alert>
-  //   </div>
-  // );
+  const [formIsOpen, setFormIsOpen] = useState(false);
 
   if (!user.id) {
     return (
       <div className="questionnaire">
-        <Alert severity="error">
-          Moc nás to mrzí, ale někde se stala chybka = chybí ID. Dejte nám to prosím
-          vědět, opravíme to.
+        <Alert severity="warning">
+          Zdá se, že nejsi přihlášený. Prosím, <a href="/login">přihlaš se</a>
         </Alert>
       </div>
     );
@@ -45,15 +38,30 @@ const Questionnaire: React.FunctionComponent = () => {
         <Paper elevation={2} className="questionnaire__paper">
           <Typography component="p" gutterBottom>
             Aby nám všem bylo v náš velký den fajn a každý měl všechno to, co potřebuje,
-            je potřeba některé věci předem trochu naplánovat. Proto bychom rádi zjistili
+            snažíme se některé věci trochu předem naplánovat. Proto bychom rádi zjistili
             několik základních informací o všech účastnících.
           </Typography>
           <Typography component="p" gutterBottom>
-            Prosíme proto o vyplnění krátkého dotazníku registrovaného uživatele. Nechť
-            vyplní informace i o ostatních účastnících, které plánuje vzít s sebou.
+            Prosíme tak o vyplnění krátkého dotazníku o tobě i o ostatních účastnících,
+            které plánuješ vzít s sebou.
           </Typography>
-          <AttendeesTable userId={user.id} />
-          <QuestionnaireForm userId={user.id} />
+          {formIsOpen ? (
+            <QuestionnaireForm
+              userId={user.id}
+              onSubmitFinish={(): void => setFormIsOpen(false)}
+            />
+          ) : (
+            <div className="questionnaire__attendees-list">
+              <AttendeesTable userId={user.id} />
+              <Button
+                onClick={(): void => setFormIsOpen(true)}
+                variant="contained"
+                color="primary"
+                className="questionnaire__submit-button">
+                Přidat účastníka
+              </Button>
+            </div>
+          )}
         </Paper>
       </ThemeProvider>
     </div>

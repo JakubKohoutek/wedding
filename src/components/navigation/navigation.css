@@ -79,3 +79,7 @@
     height: 60px;
   }
 }
+
+.navigation__login-icon {
+  vertical-align: sub;
+}

@@ -18,21 +18,21 @@ const App: React.FunctionComponent = () => {
       </header>
       <section>
         <p>
-          Vítejte na stránkách budoucích manželů Kohoutkových. Máme se rádi, a proto jsme
-          se rozhodli vzít.
+          Vítej na stránkách budoucích manželů Kohoutkových. Máme se rádi, a proto jsme se
+          rozhodli vzít.
         </p>
         <p>
-          Pokud jste od nás obdrželi svatební oznámení, znamená to, že bychom s Vámi tuhle
+          Pokud jsi od nás obdržel svatební oznámení, znamená to, že bychom s Tebou tuhle
           událost velmi rádi oslavili.
         </p>
         <p>
           Aby vše probíhalo hladce a všichni se dobře bavili, potřebovali bychom vědět
           několik informací o našich svatebčanech. Protože jsme pokrokoví, rozhodli jsme
           se využít moderních technologií a vytvořit tuto stránku jako jeden informační
-          kanál pro nás i pro vás.
+          kanál pro nás i pro tebe.
         </p>
         <p>
-          V případě, že se rozhodnete bavit v červnu s námi, prosíme vás o{' '}
+          V případě, že se rozhodneš bavit v červnu s námi, prosíme Tě o{' '}
           <a href="/login">registraci</a> a následné vyplnění{' '}
           <a href="/questionnaire">krátkého dotazníku</a>.
         </p>

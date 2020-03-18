@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
+import PersonIcon from '@material-ui/icons/PersonOutlined';
+
+import {context} from '../../context';
 
 import './navigation.css';
 
 const Navigation: React.FunctionComponent = () => {
   const [visible, setVisibility] = useState(false);
+  const {user} = useContext(context);
 
   return (
     <nav className="navigation">
@@ -24,7 +28,15 @@ const Navigation: React.FunctionComponent = () => {
           <Link to="/gifts">Dary</Link>
         </li>
         <li>
-          <Link to="/login">Přihlášení</Link>
+          <Link to="/login">
+            {user.username ? (
+              <span>
+                <PersonIcon className="navigation__login-icon" /> {user.username}
+              </span>
+            ) : (
+              'Přihlášení'
+            )}
+          </Link>
         </li>
       </ul>
       <div

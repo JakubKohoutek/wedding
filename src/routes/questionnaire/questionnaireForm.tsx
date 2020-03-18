@@ -1,25 +1,32 @@
 import React, {useState, FormEvent} from 'react';
+import Alert from '@material-ui/lab/Alert';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 
 import {QuestionnaireDTO} from '../../../server/src/entity/Questionnaire';
 
 type Props = {
   userId: number;
+  onSubmitFinish: () => void;
   className?: string;
 };
 
-const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) => {
+const QuestionnaireForm: React.FunctionComponent<Props> = ({
+  userId,
+  className,
+  onSubmitFinish
+}) => {
   const [formData, setFormData] = useState<QuestionnaireDTO>({
     registratorId: userId,
     name: '',
     surname: '',
     foodRequirements: '',
     accommodationFriday: false,
-    accommodationSaturday: true,
+    accommodationSaturday: false,
     isChild: false
   });
 
@@ -27,9 +34,9 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
-    setSubmitting(true);
     try {
+      e.preventDefault();
+      setSubmitting(true);
       const response = await fetch('/api/attendance', {
         method: 'POST',
         headers: {
@@ -44,16 +51,28 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
         const payload = await response.json();
         throw new Error(payload.error);
       }
-      const payload: QuestionnaireDTO = await response.json();
     } catch (error) {
       console.error(error);
       setError(error.message);
+    } finally {
+      setSubmitting(false);
+      onSubmitFinish();
     }
-    setSubmitting(false);
   };
+
+  if (error) {
+    return (
+      <Alert severity="error">
+        Ups, někde se stala chybka, prosím, kontaktuj nás. Podrobnosti: {error}
+      </Alert>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className={className}>
+      <Typography variant="h6" className="questionnaire__paragraph">
+        Nový účastník
+      </Typography>
       <TextField
         margin="normal"
         required
@@ -61,7 +80,6 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
         id="name"
         label="Jméno"
         name="name"
-        autoFocus
         defaultValue={formData.name}
         onChange={(e): void => setFormData({...formData, name: e.target.value})}
       />
@@ -75,6 +93,28 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
         defaultValue={formData.surname}
         onChange={(e): void => setFormData({...formData, surname: e.target.value})}
       />
+      <Typography className="questionnaire__paragraph">
+        V rámci akce je plánován oběd: <br />
+        &bull; Předkrm: Tradiční šunková rolka s křenovou šlehačkou a křupavou bagetkou
+        (1,3,7)
+        <br />
+        &bull; Polévka: Hovězí vývar s julienne zeleninou, játrovými knedlíčky a domácími
+        nudlemi (1,3,7,9)
+        <br />
+        &bull; Hlavní jídlo: svatební hovězí pečeně na smetaně s brusinkami, houskové
+        knedlíky (1,3,7,9,10)
+      </Typography>
+      <Typography>
+        Samozřejmě, večer nebude chybět ani raut, ale jeho konkrétní složení zatím nevíme.
+      </Typography>
+      <Typography variant="body2" align="right">
+        <a
+          href="https://www.strava.cz/Strava/Napoveda/cz/Prilohy/alergeny.pdf"
+          target="_blank"
+          rel="noopener noreferrer">
+          seznam alergenů
+        </a>
+      </Typography>
       <TextField
         margin="normal"
         fullWidth
@@ -87,7 +127,17 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
           setFormData({...formData, foodRequirements: e.target.value});
         }}
       />
-      <FormGroup>
+      <Typography className="questionnaire__paragraph">
+        Na místě je možnost ubytování přímo v místě konání - pěkné hotelové pokoje, včetně
+        snídaně. Vzhledem k tomu, že někteří přijedou z daleka, potřebujeme předem vědět,
+        jestli budeš chtít zůstat a juchat s námi (nejlépe) až do rána nebo pozdní noci,
+        či zda máš v plánu odjet bez noclehu. Samozřejmě, pokud si chceš pobyt prodloužit,
+        je možné přijet už v pátek a případně s námi posedět.
+      </Typography>
+      <Typography>
+        Mimochodem, přespání je možné samozřejmě i pro ty, co to mají blízko.
+      </Typography>
+      <FormGroup className="questionnaire__checkboxes">
         <FormControlLabel
           control={
             <Checkbox
@@ -125,7 +175,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
               color="primary"
             />
           }
-          label="Jsem dítě do 14 let"
+          label="Jsem dítě do 15 let"
         />
       </FormGroup>
       {formData.isChild && (
@@ -136,7 +186,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({userId, className}) 
           id="age"
           name="age"
           label="Můj věk"
-          defaultValue={formData.age}
+          defaultValue={formData.age || undefined}
           onChange={(e): void =>
             setFormData({...formData, age: parseInt(e.target.value, 10)})
           }

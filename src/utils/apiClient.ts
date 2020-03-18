@@ -36,11 +36,7 @@ export const getAttendees = async (userId: number): Promise<Response> => {
   return response;
 };
 
-export const deleteAttendee = async (id?: number): Promise<void> => {
-  if (!id) {
-    throw new Error('Missing ID');
-  }
-
+export const deleteAttendee = async (id: number): Promise<void> => {
   const response = await fetch(`/api/attendance/${id}`, {
     method: 'DELETE',
     headers: {

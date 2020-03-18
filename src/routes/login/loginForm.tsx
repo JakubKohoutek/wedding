@@ -90,7 +90,7 @@ const LoginForm: React.FunctionComponent<Props> = ({showRegistrationForm}) => {
           onChange={(e): void => setFormData({...formData, password: e.target.value})}
         />
         <div className="login__buttons">
-          <Button variant="outlined" color="secondary" onClick={showRegistrationForm}>
+          <Button variant="contained" color="secondary" onClick={showRegistrationForm}>
             Registrovat
           </Button>
           <Button

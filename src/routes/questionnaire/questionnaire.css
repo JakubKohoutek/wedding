@@ -9,9 +9,36 @@
 
 .questionnaire__submit-button {
   float: right;
+  margin-top: 20px;
 }
 
 .questionnaire__paper {
   padding: 20px;
-  max-width: 600px;
+  max-width: 700px;
+}
+
+.attendees-table {
+  margin: 20px 0;
+}
+
+.attendees-table__icon {
+  vertical-align: text-bottom;
+}
+
+.attendees-table__delete-icon {
+  vertical-align: text-bottom;
+  cursor: pointer;
+}
+
+.questionnaire__attendees-list {
+  padding: 20px 0;
+  max-width: 80vw;
+}
+
+.questionnaire__paragraph {
+  padding-top: 24px;
+}
+
+.questionnaire__checkboxes {
+  padding-top: 20px;
 }
