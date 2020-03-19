@@ -32,6 +32,7 @@ jobs:
             if [ -s "$ERROR_FILE" ]; then
               rm "$ERROR_FILE"
             fi
+            npm run migration
             PORT="$PORT" npm run server > "$LOG_FILE" 2> "$ERROR_FILE" < /dev/null &
             sleep 15
             if PROCESS_ID=$( lsof -i :"$PORT" -t ) ; then
