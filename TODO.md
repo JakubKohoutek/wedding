@@ -2,6 +2,8 @@
 
 - [x] Proxy server to client port in DEV environment
 - [x] Solve deployment of app with server
-- [ ] Add validation for the questionnaire
-- [ ] Use passport with JWT for api requests
-- [ ] Implement logout if JWT expires
+- [x] Add validation for the questionnaire
+- [x] Use passport with JWT for api requests
+- [x] Implement logout if JWT expires
+- [ ] Add validation for emails
+- [ ] Add password reset capability
