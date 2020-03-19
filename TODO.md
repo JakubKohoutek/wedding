@@ -5,5 +5,4 @@
 - [x] Add validation for the questionnaire
 - [x] Use passport with JWT for api requests
 - [x] Implement logout if JWT expires
-- [ ] Add validation for emails
-- [ ] Add password reset capability
+- [x] Add validation for emails

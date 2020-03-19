@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm';
-import {Length, IsNotEmpty} from 'class-validator';
+import {Length, IsNotEmpty, IsEmail} from 'class-validator';
 import bcrypt from 'bcryptjs';
 
 export type UserDTO = {
@@ -26,7 +26,7 @@ export class User {
   username!: string;
 
   @Column()
-  @Length(4, 100)
+  @IsEmail()
   email!: string;
 
   @Column()
