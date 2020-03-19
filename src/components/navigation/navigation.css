@@ -1,9 +1,14 @@
 .navigation {
-  position: absolute;
+  position: fixed;
+  z-index: 999;
   width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
+}
+
+.navigation--dark {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .navigation__hamburger-icon {
@@ -57,6 +62,10 @@
 }
 
 @media screen and (max-width: 768px){
+  .navigation--dark {
+    background-color: transparent;
+  }
+
   .navigation__hamburger-icon {
     display: inline-block;
   }

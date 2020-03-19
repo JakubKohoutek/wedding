@@ -14,7 +14,7 @@
 
 .questionnaire__paper {
   padding: 20px;
-  max-width: 700px;
+  max-width: 800px;
 }
 
 .attendees-table {
@@ -22,16 +22,15 @@
 }
 
 .attendees-table__icon {
-  vertical-align: text-bottom;
+  vertical-align: inherit;
 }
 
 .attendees-table__delete-icon {
-  vertical-align: text-bottom;
+  vertical-align: inherit;
   cursor: pointer;
 }
 
 .questionnaire__attendees-list {
-  padding: 20px 0;
   max-width: 80vw;
 }
 

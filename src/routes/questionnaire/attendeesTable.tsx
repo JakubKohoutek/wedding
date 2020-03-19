@@ -12,6 +12,7 @@ import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import ChildCareOutlinedIcon from '@material-ui/icons/ChildCareOutlined';
 import CheckIcon from '@material-ui/icons/CheckOutlined';
 import CloseIcon from '@material-ui/icons/CloseOutlined';
+import BedIcon from '@material-ui/icons/LocalHotelOutlined';
 
 import {QuestionnaireDTO} from '../../../server/src/entity/Questionnaire';
 
@@ -76,8 +77,12 @@ export const AttendeesTable: React.FC<Props> = ({userId}) => {
 
   return (
     <>
-      <Typography component="h1" variant="h6" gutterBottom>
-        Seznam tebou registrovaných účastníků
+      <Typography
+        component="h1"
+        variant="h6"
+        gutterBottom
+        className="questionnaire__paragraph">
+        Seznam Tvých odpovědí
       </Typography>
       <TableContainer component={Paper} className="attendees-table">
         <Table>
@@ -85,9 +90,14 @@ export const AttendeesTable: React.FC<Props> = ({userId}) => {
             <TableRow>
               <TableCell>Jméno</TableCell>
               <TableCell align="right" />
+              <TableCell align="right">Účast</TableCell>
               <TableCell align="right">Požadavky na jídlo</TableCell>
-              <TableCell align="right">Ubytování pátek</TableCell>
-              <TableCell align="right">Ubytování sobota</TableCell>
+              <TableCell align="right">
+                <BedIcon className="attendees-table__icon" /> pátek
+              </TableCell>
+              <TableCell align="right">
+                <BedIcon className="attendees-table__icon" /> sobota
+              </TableCell>
               <TableCell align="right" />
             </TableRow>
           </TableHead>
@@ -105,6 +115,9 @@ export const AttendeesTable: React.FC<Props> = ({userId}) => {
                       titleAccess={`${row.age} let`}
                     />
                   )}
+                </TableCell>
+                <TableCell align="right">
+                  {row.willAttend ? renderYesIcon() : renderNoIcon()}
                 </TableCell>
                 <TableCell align="right">{row.foodRequirements}</TableCell>
                 <TableCell align="right">

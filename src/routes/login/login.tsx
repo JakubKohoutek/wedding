@@ -70,7 +70,7 @@ const Login: React.FunctionComponent = () => {
               Odhlásit
             </Button>
             <Button onClick={goToQuestionnaire} variant="contained" color="primary">
-              Vyplnit dotazník
+              Dát vědět účast
             </Button>
           </div>
         </Card>

@@ -36,15 +36,6 @@ const Questionnaire: React.FunctionComponent = () => {
     <div className="questionnaire">
       <ThemeProvider theme={theme}>
         <Paper elevation={2} className="questionnaire__paper">
-          <Typography component="p" gutterBottom>
-            Aby nám všem bylo v náš velký den fajn a každý měl všechno to, co potřebuje,
-            snažíme se některé věci trochu předem naplánovat. Proto bychom rádi zjistili
-            několik základních informací o všech účastnících.
-          </Typography>
-          <Typography component="p" gutterBottom>
-            Prosíme tak o vyplnění krátkého dotazníku o tobě i o ostatních účastnících,
-            které plánuješ vzít s sebou.
-          </Typography>
           {formIsOpen ? (
             <QuestionnaireForm
               userId={user.id}
@@ -52,13 +43,23 @@ const Questionnaire: React.FunctionComponent = () => {
             />
           ) : (
             <div className="questionnaire__attendees-list">
+              <Typography component="p" gutterBottom>
+                Aby nám všem bylo v náš velký den fajn a každý měl všechno to, co
+                potřebuje, snažíme se některé věci trochu předem naplánovat. Proto bychom
+                rádi zjistili, kdo z pozvaných nakonec dorazí a pár dalších informací.
+              </Typography>
+              <Typography component="p" gutterBottom>
+                Prosíme tak o vyplnění krátkého dotazníku. Ten je možné vyplnit vícekrát i
+                za lidi, které plánuješ vzít s sebou (není třeba, aby se každý účastník
+                zvlášť registroval).
+              </Typography>
               <AttendeesTable userId={user.id} />
               <Button
                 onClick={(): void => setFormIsOpen(true)}
                 variant="contained"
                 color="primary"
                 className="questionnaire__submit-button">
-                Přidat účastníka
+                Vyplnit dotazník
               </Button>
             </div>
           )}

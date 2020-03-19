@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
@@ -9,10 +9,25 @@ import './navigation.css';
 
 const Navigation: React.FunctionComponent = () => {
   const [visible, setVisibility] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const {user} = useContext(context);
+  const handleScroll = (): void => {
+    setIsScrolled(window.pageYOffset !== 0);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return (): void => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
 
   return (
-    <nav className="navigation">
+    <nav
+      className={classNames('navigation', {
+        'navigation--dark': isScrolled
+      })}>
       <ul
         className={classNames('navigation__list', {
           'navigation__list--hidden': !visible

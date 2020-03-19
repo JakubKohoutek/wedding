@@ -3,6 +3,7 @@ import {getRepository} from 'typeorm';
 import {validate} from 'class-validator';
 
 import {Questionnaire, QuestionnaireDTO} from '../../entity/Questionnaire';
+import {UserDTO} from '../../entity/User';
 
 export const recordAttendance = async (req: Request, res: Response): Promise<void> => {
   const answers = req.body as QuestionnaireDTO;
@@ -16,6 +17,7 @@ export const recordAttendance = async (req: Request, res: Response): Promise<voi
   questionnaire.accommodationSaturday = answers.accommodationSaturday;
   questionnaire.isChild = answers.isChild;
   questionnaire.age = answers.age || null;
+  questionnaire.willAttend = answers.willAttend;
 
   const errors = await validate(questionnaire);
 
@@ -47,8 +49,8 @@ export const getAttendance = async (req: Request, res: Response): Promise<void> 
     }
 
     const userId = parseInt(req.params.userId, 10);
-    const userRepository = getRepository(Questionnaire);
-    const foundRecords = await userRepository.find({
+    const questionnaireRepository = getRepository(Questionnaire);
+    const foundRecords = await questionnaireRepository.find({
       registratorId: userId
     });
 
@@ -66,9 +68,18 @@ export const deleteAttendance = async (req: Request, res: Response): Promise<voi
       throw new Error('Missing ID.');
     }
 
+    const user = req.user as UserDTO;
+
     const id = parseInt(req.params.id, 10);
-    const userRepository = getRepository(Questionnaire);
-    await userRepository.delete({
+    const questionnaireRepository = getRepository(Questionnaire);
+
+    const foundRecords = await questionnaireRepository.findOneOrFail({id});
+
+    if (foundRecords.registratorId !== user.id) {
+      throw new Error('Can not delete record of another user');
+    }
+
+    await questionnaireRepository.delete({
       id
     });
 

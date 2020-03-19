@@ -25,6 +25,7 @@
 }
 
 .login__logout-button {
+  padding-top: 10px;
   display: flex;
   justify-content: space-between;
 }

@@ -12,6 +12,7 @@ export type QuestionnaireDTO = {
   registratorId: number;
   name: string;
   surname: string;
+  willAttend: boolean;
   foodRequirements: string;
   accommodationFriday: boolean;
   accommodationSaturday: boolean;
@@ -33,6 +34,9 @@ export class Questionnaire {
 
   @Column()
   surname!: string;
+
+  @Column()
+  willAttend!: boolean;
 
   @Column()
   foodRequirements!: string;

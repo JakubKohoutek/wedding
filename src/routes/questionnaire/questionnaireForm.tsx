@@ -24,6 +24,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({
     registratorId: userId,
     name: '',
     surname: '',
+    willAttend: true,
     foodRequirements: '',
     accommodationFriday: false,
     accommodationSaturday: false,
@@ -70,9 +71,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({
 
   return (
     <form onSubmit={handleSubmit} className={className}>
-      <Typography variant="h6" className="questionnaire__paragraph">
-        Nový účastník
-      </Typography>
+      <Typography variant="h6">Dotazník ke Tvé účasti</Typography>
       <TextField
         margin="normal"
         required
@@ -93,6 +92,21 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({
         defaultValue={formData.surname}
         onChange={(e): void => setFormData({...formData, surname: e.target.value})}
       />
+      <FormGroup className="questionnaire__checkboxes">
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={formData.willAttend}
+              onChange={(e): void =>
+                setFormData({...formData, willAttend: e.target.checked})
+              }
+              value="willAttend"
+              color="default"
+            />
+          }
+          label="Plánuji se zúčastnit"
+        />
+      </FormGroup>
       <Typography className="questionnaire__paragraph">
         V rámci akce je plánován oběd: <br />
         &bull; Předkrm: Tradiční šunková rolka s křenovou šlehačkou a křupavou bagetkou
@@ -146,7 +160,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({
                 setFormData({...formData, accommodationFriday: e.target.checked})
               }
               value="accommodationFriday"
-              color="primary"
+              color="default"
             />
           }
           label="Mám zájem o ubytování v pátek"
@@ -159,7 +173,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({
                 setFormData({...formData, accommodationSaturday: e.target.checked})
               }
               value="accommodationSaturday"
-              color="primary"
+              color="default"
             />
           }
           label="Mám zájem o ubytování v sobotu"
@@ -172,7 +186,7 @@ const QuestionnaireForm: React.FunctionComponent<Props> = ({
                 setFormData({...formData, isChild: e.target.checked})
               }
               value="isChild"
-              color="primary"
+              color="default"
             />
           }
           label="Jsem dítě do 15 let"
