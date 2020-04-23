@@ -4,22 +4,25 @@ import moment from 'moment';
 import './home.css';
 
 const App: React.FunctionComponent = () => {
-  const daysToWedding = moment([2020, 5, 6]).diff(moment(), 'days');
+  const daysToWedding = moment([2020, 8, 5]).diff(moment(), 'days');
 
   return (
     <div className="home">
       <header>
         <h1>Svatba Kuby a Adélky</h1>
-        <p className="home__countdown">
-          Bude se konat 6. 6. 2020 ve 12 hodin v Hotelu Monínec.
+        <p>Bude se konat 5. 9. 2020 ve 12 hodin v Hotelu Monínec.</p>
+        <p>Do dne D zbývá {daysToWedding} dní!</p>
+        <p>
+          Kvůli současné nejisté situaci jsme byli bohužel nuceni přeložit původní termín
+          svatby z 6. června na září. Nechtěli jsme totiž škrtat ze seznamu hostů ani
+          příliš riskovat zdraví svatebčanů.
         </p>
-        <p className="home__countdown">Do dne D zbývá {daysToWedding} dní!</p>
         <img src="/us_compressed.jpg" alt="Nase fotka" className="home__our-photo" />
       </header>
       <section>
         <p>
           Vítej na stránkách budoucích manželů Kohoutkových. Máme se rádi, a proto jsme se
-          rozhodli vzít.
+          rozhodli vzít, i když nás osud zkouší, jak může.
         </p>
         <p>
           Pokud jsi od nás obdržel svatební oznámení, znamená to, že bychom s Tebou tuhle

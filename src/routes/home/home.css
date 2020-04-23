@@ -7,6 +7,13 @@
   max-width: 700px;
 }
 
+.home header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
 .home h1 {
   padding: 10px 0 20px 0;
   text-align: center;
