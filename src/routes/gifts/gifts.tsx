@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Emoji from '../../components/emoji';
+
 import './gifts.css';
 
 const Gifts: React.FunctionComponent = () => {
@@ -12,11 +14,10 @@ const Gifts: React.FunctionComponent = () => {
         <p>který nám šanci na byt či dům zvýší.</p>
         <br />
         <p>Spíše než hrnce, skleničky, kávovar či pánvičky</p>
-        <p>úsměv nám vykouzlí peněžní balíčky.</p>
+        <p>úsměv nám vykouzlí z bankovek balíčky.</p>
         <br />
         <p className="gifts__thanks">
-          {/* eslint-disable-next-line */}
-          Děkujeme <span role="img" aria-label="Thank you emoji">🙏</span>
+          Děkujeme <Emoji symbol="🙏" label="Thank you" />
         </p>
       </section>
     </div>

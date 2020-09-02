@@ -10,6 +10,7 @@ import Map from './routes/map';
 import Login from './routes/login';
 import Gifts from './routes/gifts/gifts';
 import Schedule from './routes/schedule';
+import Info from './routes/info';
 
 import {useLocalStorage} from './utils/useLocalStorage';
 import Questionnaire from './routes/questionnaire';
@@ -30,6 +31,7 @@ const App: React.SFC = () => {
               <Route path="/map" component={Map} />
               <Route path="/login" component={Login} />
               <Route path="/gifts" component={Gifts} />
+              <Route path="/info" component={Info} />
               <Route path="/schedule" component={Schedule} />
               <Route path="/questionnaire" component={Questionnaire} />
             </Switch>

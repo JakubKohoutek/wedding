@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -21,7 +21,7 @@ const TimelineEvent: React.FC<{time: string; event: string; last?: boolean}> = (
     </TimelineOppositeContent>
     <TimelineSeparator>
       <TimelineDot />
-      {last || <TimelineConnector />}
+      {last ? '' : <TimelineConnector />}
     </TimelineSeparator>
     <TimelineContent>
       <Typography>{event}</Typography>
@@ -30,6 +30,10 @@ const TimelineEvent: React.FC<{time: string; event: string; last?: boolean}> = (
 );
 
 const Schedule: React.FunctionComponent = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="schedule">
       <h1>Harmonogram</h1>
