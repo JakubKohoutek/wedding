@@ -43,6 +43,12 @@ const Navigation: React.FunctionComponent = () => {
           <Link to="/gifts">Dary</Link>
         </li>
         <li>
+          <Link to="/info">Informace</Link>
+        </li>
+        <li>
+          <Link to="/schedule">Harmonogram</Link>
+        </li>
+        <li>
           <Link to="/login">
             {user.username ? (
               <span>
