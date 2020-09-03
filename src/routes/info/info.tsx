@@ -20,7 +20,7 @@ const Info: React.FunctionComponent = () => {
         Prosíme o příjezd ideálně <b>nejpozději okolo 11:30</b>, abychom vás mohli ještě
         ozdobit jako správné svatebčany, stihli jste si dát nějaký ten chlebíček či se
         případně ubytovat. Také bychom se rádi vyhnuli zbytečnému stresu.{' '}
-        <Emoji symbol="😊" label=":-)" />
+        <Emoji symbol="😊" label=":-)" /> Parkování je možné přímo na místě.
       </p>
       <p>
         Obědvat budeme později, proto bude před obřadem připraveno i malé občerstvení.
